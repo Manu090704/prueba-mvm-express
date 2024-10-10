@@ -7,13 +7,18 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "keywords": [
+    "node",
+    "express",
+    "typescript",
+    "eslint",
+    "prettier"
+  ],
+  "author": "Manuel Bajos Rivera",
+  "license": "MIT",
+  "description": "Proyecto completo con Express para el proyecto de IOT, 2024",
   "dependencies": {
     "dotenv": "^16.4.5",
     "express": "^4.21.1"
