@@ -4,6 +4,7 @@
   "main": "index.ts",
   "scripts": {
     "start": "cross-env NODE_ENV=production node dist/index.js",
+    "star:render": "node dist/index.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "build": "tsc",
