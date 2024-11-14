@@ -13,9 +13,5 @@ export const courseSchema = z.object({
     .min(1, { message: "Los créditos deben ser al menos 1" }),
   description: z
     .string()
-    .max(300, { message: "La descripción no debe exceder 300 caracteres" })
-    .optional(),
-  teacher_id: z.number().int().min(1, {
-    message: "El ID del profesor debe ser un número entero positivo",
-  }),
+    .max(300, { message: "La descripción no debe exceder 300 caracteres" }),
 });

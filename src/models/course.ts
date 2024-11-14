@@ -32,8 +32,8 @@ export const findAllCourses = async (
 export const insertCourse = async (course: Course): Promise<Course> => {
   const { course_name, credits, description, teacher_id } = course;
   const [result] = await pool.query<ResultSetHeader>(
-    `INSERT INTO courses (name,credits, description, teacher_id) 
-     VALUES (?, ?, ?, ?, ?, ?)`,
+    `INSERT INTO courses (course_name, credits, description, teacher_id) 
+     VALUES (?, ?, ?, ?)`,
     [course_name, credits, description, teacher_id],
   );
   const { insertId } = result;
@@ -47,10 +47,10 @@ export const updateCourse = async (
   const { course_name, credits, description, teacher_id } = course;
   await pool.query<ResultSetHeader>(
     `UPDATE courses
-     SET course_name = ?,
-         credits = ?,
+     SET course_name = ?, 
+         credits = ?, 
          description = ?, 
-         teacher_id = ?,
+         teacher_id = ?
      WHERE id = ?;`,
     [course_name, credits, description, teacher_id, id],
   );
