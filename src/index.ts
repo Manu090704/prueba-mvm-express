@@ -1,18 +1,16 @@
 import dotenvFlow from "dotenv-flow";
 import express from "express";
-import studentRouter from "./routes/student";
-import profesorRouter from "./routes/profesor";
-import courseRouter from "./routes/course"; // Importar la ruta para cursos
-import testRoutes from "./routes/test";
-import unknownResource from "./middlewares/unknown-resource";
-import unknownError from "./middlewares/unknown-error";
-import validationError from "./middlewares/validation-error";
+import temperatureRouter from "./routes/temperature"; // Importar la ruta para temperaturas
+import turbidityRouter from "./routes/turbidity"; // Ruta para turbidez
+import testRoutes from "./routes/test"; // Rutas de prueba
+import unknownResource from "./middlewares/unknown-resource"; // Middleware para recurso no encontrado
+import unknownError from "./middlewares/unknown-error"; // Middleware para errores no manejados
+import validationError from "./middlewares/validation-error"; // Middleware para errores de validación
 import http from "http";
 import { Server as SocketIOServer } from "socket.io";
 import cors from "cors";
 
-//Para poder acceder a las variables del ambiente
-// Cargar dotenv-flow solo si no estamos en producción
+// Cargar las variables de entorno (si no es producción)
 if (process.env.NODE_ENV !== "production") {
   dotenvFlow.config();
 }
@@ -32,11 +30,10 @@ app.use(cors());
 app.use(express.json());
 
 // Rutas de la API
-app.use("/api/v1/student", studentRouter);
-app.use("/api/v1/profesor", profesorRouter); // Ruta para profesores
-app.use("/api/v1/course", courseRouter); // Ruta para cursos
+app.use("/api/v1/temperature", temperatureRouter); // Ruta para temperaturas
+app.use("/api/v1/turbidity", turbidityRouter); // Ruta para turbidez
 
-// Rutas de prueba
+// Rutas de prueba (si las necesitas)
 app.use("/error", testRoutes);
 
 // WebSocket Connection
@@ -48,16 +45,16 @@ io.on("connection", (socket) => {
   });
 });
 
-// Make io accessible to routers/controllers
+// Hacer que io esté accesible para los routers/controladores
 app.set("io", io);
 
 // Middlewares
-app.use(validationError); // Error de validacion
+app.use(validationError); // Error de validación
 app.use(unknownResource); // Error 404, recurso no encontrado
 
 // Middlewares de error
 app.use(unknownError);
 
-server.listen(process.env.SERVER_PORT, function () {
-  console.log("Escuchando puerto " + process.env.SERVER_PORT);
+server.listen(process.env.SERVER_PORT || 3001, () => {
+  console.log(`Escuchando en el puerto ${process.env.SERVER_PORT || 3001}`);
 });
